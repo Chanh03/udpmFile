@@ -531,14 +531,14 @@
                           <Table columnCount="10" rowCount="4">
                             <Column editable="false" title="SoThuTu" type="java.lang.Object"/>
                             <Column editable="false" title="ID KH&#xc1;CH THU&#xca;" type="java.lang.Object"/>
-                            <Column editable="false" title="HO" type="java.lang.Object"/>
+                            <Column editable="false" title="H&#x1ecc;" type="java.lang.Object"/>
                             <Column editable="false" title="CCCD" type="java.lang.Object"/>
-                            <Column editable="false" title="GI&#x1eda;I T&#xcd;NH" type="java.lang.Object"/>
-                            <Column editable="false" title="S&#x1ed0; &#x110;I&#x1ec6;N THO&#x1ea0;I" type="java.lang.Object"/>
+                            <Column editable="false" title="&#x110;&#x1eca;A CH&#x1ec8;" type="java.lang.Object"/>
                             <Column editable="false" title="EMAIL" type="java.lang.Object"/>
+                            <Column editable="false" title="S&#x1ed0; &#x110;I&#x1ec6;N THO&#x1ea0;I" type="java.lang.Object"/>
                             <Column editable="false" title="T&#xca;N" type="java.lang.Object"/>
                             <Column editable="false" title="H&#xcc;NH &#x1ea2;NH" type="java.lang.Object"/>
-                            <Column editable="false" title="&#x110;&#x1eca;A CH&#x1ec8;" type="java.lang.Object"/>
+                            <Column editable="false" title="GI&#x1eda;I T&#xcd;NH" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -605,6 +605,9 @@
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblKhachMousePressed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -915,9 +918,9 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="11" rowCount="4">
                             <Column editable="false" title="SoThuTu" type="java.lang.Object"/>
-                            <Column editable="false" title="ID h&#x1ee3;p &#x111;&#x1ed3;ng" type="java.lang.Object"/>
-                            <Column editable="false" title="Ng&#xe0;y b&#x1eaf;t &#x111;&#x1ea7;u &#x1edf;" type="java.lang.Object"/>
-                            <Column editable="false" title="Ng&#xe0;y k&#x1ebf;t th&#xfa;c &#x1edf;" type="java.lang.Object"/>
+                            <Column editable="false" title="Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u &#x1ede;" type="java.lang.Object"/>
+                            <Column editable="false" title="Ng&#xe0;y K&#x1ebf;t Th&#xfa;c &#x1ede;" type="java.lang.Object"/>
+                            <Column editable="false" title="ID_H&#x1ee3;p &#x110;&#x1ed3;ng" type="java.lang.Object"/>
                             <Column editable="false" title="Ti&#x1ec1;n c&#x1ecd;c" type="java.lang.Object"/>
                             <Column editable="false" title="Ti&#x1ec1;n thu&#xea;" type="java.lang.Object"/>
                             <Column editable="false" title="Ng&#xe0;y k&#xfd; h&#x1ee3;p &#x111;&#x1ed3;ng" type="java.lang.Object"/>

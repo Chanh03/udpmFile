@@ -70,7 +70,11 @@ public class NguoiOCungDAO extends PhongTro_ChungDAO<NguoiOCungEntily, Object> {
                 noc.setEmail(rs.getString("Email"));
                 noc.setHinhAnh(rs.getString("HinhAnh"));
                 noc.setSoDienThoai(rs.getString("SoDienThoai"));
-                noc.setGioiTinh(rs.getString("GioiTinh"));
+                if (rs.getString("GioiTinh").equalsIgnoreCase("1")) {
+                    noc.setGioiTinh("Nam");
+                } else {
+                    noc.setGioiTinh("Nữ");
+                }
                 noc.setCCCD(rs.getString("CCCD"));
                 noc.setDiaChi(rs.getString("DiaChi"));
                 noc.setID_Khach(rs.getString("ID_Khach"));

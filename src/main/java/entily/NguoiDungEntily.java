@@ -9,6 +9,7 @@ package entily;
  * @author Trong Phuc
  */
 public class NguoiDungEntily {
+    private int SoThuTu;
     private String ChucVu;
     private String ID_NguoiDung;
     private String Matkhau;
@@ -23,7 +24,8 @@ public class NguoiDungEntily {
     public NguoiDungEntily() {
     }
 
-    public NguoiDungEntily(String ChucVu, String ID_NguoiDung, String Matkhau, String TenDangNhap, String Ho, String Ten, String Trang_Thai, String Email, String DiaChi, String ID_HopDong) {
+    public NguoiDungEntily(int SoThuTu, String ChucVu, String ID_NguoiDung, String Matkhau, String TenDangNhap, String Ho, String Ten, String Trang_Thai, String Email, String DiaChi, String ID_HopDong) {
+        this.SoThuTu = SoThuTu;
         this.ChucVu = ChucVu;
         this.ID_NguoiDung = ID_NguoiDung;
         this.Matkhau = Matkhau;
@@ -34,6 +36,14 @@ public class NguoiDungEntily {
         this.Email = Email;
         this.DiaChi = DiaChi;
         this.ID_HopDong = ID_HopDong;
+    }
+
+    public int getSoThuTu() {
+        return SoThuTu;
+    }
+
+    public void setSoThuTu(int SoThuTu) {
+        this.SoThuTu = SoThuTu;
     }
 
     public String getChucVu() {
@@ -115,6 +125,6 @@ public class NguoiDungEntily {
     public void setID_HopDong(String ID_HopDong) {
         this.ID_HopDong = ID_HopDong;
     }
-    
+
     
 }

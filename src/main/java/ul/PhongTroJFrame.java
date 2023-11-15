@@ -6,11 +6,19 @@ package ul;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import dao.DichVuDAO;
+import dao.HopDongDAO;
+import dao.KhachThueDAO;
+import dao.NguoiDungDAO;
 import dao.NguoiOCungDAO;
 import dao.PhongTroDAO;
+import dao.ThanhToanDAO;
 import entily.DichVuEntily;
+import entily.HopDongEntily;
+import entily.KhachThueEntily;
+import entily.NguoiDungEntily;
 import entily.NguoiOCungEntily;
 import entily.PhongTroEntily;
+import entily.ThanhToanEntily;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -35,8 +43,12 @@ import utils.XImage;
 public class PhongTroJFrame extends javax.swing.JFrame {
 
     PhongTroDAO daoP = new PhongTroDAO();
+    NguoiDungDAO daoND = new NguoiDungDAO();
     NguoiOCungDAO daoNOC = new NguoiOCungDAO();
     DichVuDAO daoDV = new DichVuDAO();
+    KhachThueDAO daoKT = new KhachThueDAO();
+    ThanhToanDAO daoTT = new ThanhToanDAO();
+    HopDongDAO daoHD = new HopDongDAO();
 
     /**
      * Creates new form PhongTroJFrame
@@ -52,8 +64,12 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         setTitle("Trang Chủ");
         setLocationRelativeTo(null);
         filldataPhong();
+        fillTableNguoiDung();
+        fillTableHopDong();
         fillTableNguoiOCung();
         fillTableDichVu();
+        filldataKhachThue();
+        fillTableThanhToan();
         setIconImage(XImage.getAppIcon());
     }
 
@@ -75,6 +91,33 @@ public class PhongTroJFrame extends javax.swing.JFrame {
                 model.addRow(row);
             }
         } catch (Exception e) {
+        }
+    }
+
+    public void fillTableNguoiDung() {
+        DefaultTableModel model = (DefaultTableModel) tblNguoiDung.getModel();
+        model.setRowCount(0);
+
+        try {
+            List<NguoiDungEntily> list = daoND.selectAll();
+            for (NguoiDungEntily nd : list) {
+
+                Object[] row = {
+                    nd.getSoThuTu(),
+                    nd.getID_NguoiDung(),
+                    nd.getTenDangNhap(),
+                    nd.getMatkhau(),
+                    nd.getChucVu(),
+                    nd.getHo(),
+                    nd.getTen(),
+                    nd.getTrang_Thai(),
+                    nd.getEmail(),
+                    nd.getDiaChi(),
+                    nd.getID_HopDong(),};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            Msgbox.alert(this, "Loi Truy Van Nguoi Dung ");
         }
     }
 
@@ -127,6 +170,82 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             Msgbox.alert(this, "Loi Truy Van");
+        }
+    }
+
+    void filldataKhachThue() {
+        DefaultTableModel model = (DefaultTableModel) tblKhach.getModel();
+        model.setRowCount(0);
+        try {
+            List<KhachThueEntily> list = daoKT.selectAll();
+            for (KhachThueEntily pt : list) {
+                Object[] row = {
+                    pt.getSoThuThu(),
+                    pt.getID_khach(),
+                    pt.getHo(),
+                    pt.getCCCD(),
+                    pt.getDiaChi(),
+                    pt.getEmail(),
+                    pt.getSoDienThoai(),
+                    pt.getTen(),
+                    pt.getHinhAnh(),
+                    pt.getGioiTinh()
+                };
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public void fillTableThanhToan() {
+        DefaultTableModel model = (DefaultTableModel) tblThanhToan.getModel();
+        model.setRowCount(0);
+        try {
+            List<ThanhToanEntily> list = daoTT.selectAll();
+            for (ThanhToanEntily tt : list) {
+                Object[] row = {
+                    tt.getSoThuTu(),
+                    tt.getID_ThanhToan(),
+                    tt.getNgayThanhToan(),
+                    tt.getTienPhong(),
+                    tt.getPhuongThucThanhToan(),
+                    tt.getThangThanhToan(),
+                    tt.getTienDien(),
+                    tt.getTienNuoc(),
+                    tt.getTienDichVu(),
+                    tt.getID_HopDong(),};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Msgbox.alert(this, "Loi Truy Van Thanh Toan");
+        }
+    }
+
+    public void fillTableHopDong() {
+        DefaultTableModel model = (DefaultTableModel) tblHopDong.getModel();
+        model.setRowCount(0);
+        try {
+            List<HopDongEntily> list = daoHD.selectAll();
+            for (HopDongEntily hd : list) {
+                Object[] row = {
+                    hd.getSoThuTu(),
+                    hd.getNgayBatDauO(),
+                    hd.getNgayKetThucO(),
+                    hd.getID_HopDong(),
+                    hd.getTienCoc(),
+                    hd.getTienThue(),
+                    hd.getNgayKyHopDong(),
+                    hd.getNgayHetHopDong(),
+                    hd.getGhiChu(),
+                    hd.getID_Phong(),
+                    hd.getID_Khach()
+                };
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, e);
+            Msgbox.alert(this, "Loi Truy Van Hop Dong");
         }
     }
 
@@ -205,7 +324,7 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         tbl.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         tbl.getTableHeader().setPreferredSize(new Dimension(100, 40));
         tbl.setRowHeight(30);
-     
+
     }
 
     void setupTables() {
@@ -679,7 +798,7 @@ public class PhongTroJFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "SoThuTu", "ID KHÁCH THUÊ", "HO", "CCCD", "GIỚI TÍNH", "SỐ ĐIỆN THOẠI", "EMAIL", "TÊN", "HÌNH ẢNH", "ĐỊA CHỈ"
+                "SoThuTu", "ID KHÁCH THUÊ", "HỌ", "CCCD", "ĐỊA CHỈ", "EMAIL", "SỐ ĐIỆN THOẠI", "TÊN", "HÌNH ẢNH", "GIỚI TÍNH"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -692,6 +811,11 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         });
         tblKhach.setSelectionBackground(new java.awt.Color(1, 152, 122));
         tblKhach.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tblKhach.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblKhachMousePressed(evt);
+            }
+        });
         jScrollPane4.setViewportView(tblKhach);
         if (tblKhach.getColumnModel().getColumnCount() > 0) {
             tblKhach.getColumnModel().getColumn(0).setMaxWidth(100);
@@ -873,7 +997,7 @@ public class PhongTroJFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "SoThuTu", "ID hợp đồng", "Ngày bắt đầu ở", "Ngày kết thúc ở", "Tiền cọc", "Tiền thuê", "Ngày ký hợp đồng", "Ngày hết hợp đồng", "Ghi chú", "ID phòng", "ID khách"
+                "SoThuTu", "Ngày Bắt Đầu Ở", "Ngày Kết Thúc Ở", "ID_Hợp Đồng", "Tiền cọc", "Tiền thuê", "Ngày ký hợp đồng", "Ngày hết hợp đồng", "Ghi chú", "ID phòng", "ID khách"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -2044,6 +2168,7 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         int current = tblPhong.getSelectedRow();
         currentTable(current);
+
     }//GEN-LAST:event_tblPhongMousePressed
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
@@ -2108,6 +2233,10 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         tbpCHUNG.setSelectedIndex(3);
 
     }//GEN-LAST:event_btnThanhToanActionPerformed
+
+    private void tblKhachMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblKhachMousePressed
 
     /**
      * @param args the command line arguments

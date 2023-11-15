@@ -55,9 +55,11 @@ public class NguoiDungDAO extends PhongTro_ChungDAO<NguoiDungEntily, Object> {
     public List<NguoiDungEntily> selectBySql(String sql, Object... args) {
         List<NguoiDungEntily> list = new ArrayList<>();
         try {
+            sql = "SELECT ROW_NUMBER() OVER (ORDER BY ID_NguoiDung) AS SoThuTu,* FROM NguoiDung";
             ResultSet rs = JdbcHelper.query(sql, args);
             while (rs.next()) {                
                 NguoiDungEntily nd = new NguoiDungEntily();
+                nd.setSoThuTu(rs.getInt("SoThuTu"));
                 nd.setChucVu(rs.getString("ChucVu"));
                 nd.setID_NguoiDung(rs.getString("ID_NguoiDung"));
                 nd.setMatkhau(rs.getString("Matkhau"));
