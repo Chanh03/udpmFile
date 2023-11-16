@@ -56,11 +56,11 @@ public class HopDongDAO extends PhongTro_ChungDAO<HopDongEntily, Object> {
     public List<HopDongEntily> selectBySql(String sql, Object... args) {
         List<HopDongEntily> list = new ArrayList<>();
         try {
-            sql = "SELECT ROW_NUMBER() OVER (ORDER BY ID_HopDong) AS SoThuTu,* FROM HopDong";
             ResultSet rs = JdbcHelper.query(sql, args);
+            int i = 1;
             while (rs.next()) {
                 HopDongEntily hd = new HopDongEntily();
-                hd.setSoThuTu(rs.getInt("SoThuTu"));
+                hd.setSoThuTu(i);
                 hd.setNgayBatDauO(rs.getString("NgayBatDauO"));
                 hd.setNgayKetThucO(rs.getString("NgayKetThucO"));
                 hd.setID_HopDong(rs.getString("ID_HopDong"));
@@ -73,6 +73,7 @@ public class HopDongDAO extends PhongTro_ChungDAO<HopDongEntily, Object> {
                 hd.setID_Khach(rs.getString("ID_Khach"));
 
                 list.add(hd);
+                i++;
             }
         } catch (Exception e) {
         }

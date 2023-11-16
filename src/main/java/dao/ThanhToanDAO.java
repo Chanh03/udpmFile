@@ -53,11 +53,11 @@ List<ThanhToanEntily> list = selectBySql(SELECT_BY_ID_ALL_SQL, id);
     public List<ThanhToanEntily> selectBySql(String sql, Object... args) {
  List<ThanhToanEntily> list = new ArrayList<>();
         try {
-            sql = "SELECT ROW_NUMBER() OVER (ORDER BY ID_ThanhToan) AS SoThuTu,* FROM ThanhToan";
             ResultSet rs = JdbcHelper.query(sql, args);
+            int i = 1;
             while (rs.next()) {           
                 ThanhToanEntily tt = new ThanhToanEntily();
-                tt.setSoThuTu(rs.getInt("SoThuTu"));
+                tt.setSoThuTu(i);
                 tt.setID_ThanhToan(rs.getString("ID_ThanhToan"));
                 tt.setNgayThanhToan(rs.getString("NgayThanhToan"));
                 tt.setTienPhong(rs.getString("TienPhong"));
@@ -69,6 +69,7 @@ List<ThanhToanEntily> list = selectBySql(SELECT_BY_ID_ALL_SQL, id);
                 tt.setID_HopDong(rs.getString("ID_HopDong"));
                
                 list.add(tt);
+                i++;
             }
         } catch (Exception e) {
         }

@@ -10,7 +10,7 @@ package entily;
  */
 public class NguoiOCungEntily {
 
-    private String SoThuTu;
+    private int SoThuTu;
     private String Ho;
     private String Ten;
     private String ID_NguoiOCung;
@@ -22,7 +22,7 @@ public class NguoiOCungEntily {
     private String DiaChi;
     private String ID_Khach;
 
-    public NguoiOCungEntily(String SoThuTu, String Ho, String Ten, String ID_NguoiOCung, String Email, String HinhAnh, String SoDienThoai, String GioiTinh, String CCCD, String DiaChi, String ID_Khach) {
+    public NguoiOCungEntily(int SoThuTu, String Ho, String Ten, String ID_NguoiOCung, String Email, String HinhAnh, String SoDienThoai, String GioiTinh, String CCCD, String DiaChi, String ID_Khach) {
         this.SoThuTu = SoThuTu;
         this.Ho = Ho;
         this.Ten = Ten;
@@ -40,11 +40,11 @@ public class NguoiOCungEntily {
     }
     
 
-    public String getSoThuTu() {
+    public int getSoThuTu() {
         return SoThuTu;
     }
 
-    public void setSoThuTu(String SoThuTu) {
+    public void setSoThuTu(int SoThuTu) {
         this.SoThuTu = SoThuTu;
     }
 

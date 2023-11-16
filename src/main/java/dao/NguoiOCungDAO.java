@@ -58,12 +58,12 @@ public class NguoiOCungDAO extends PhongTro_ChungDAO<NguoiOCungEntily, Object> {
     public List<NguoiOCungEntily> selectBySql(String sql, Object... args) {
         List<NguoiOCungEntily> list = new ArrayList<>();
         try {
-            sql = "SELECT ROW_NUMBER() OVER (ORDER BY ID_NguoiOCung) AS SoThuTu,* FROM NguoiOCung";
 
             ResultSet rs = JdbcHelper.query(sql);
+            int i = 1;
             while (rs.next()) {
                 NguoiOCungEntily noc = new NguoiOCungEntily();
-                noc.setSoThuTu(rs.getString("SoThuTu"));
+                noc.setSoThuTu(i);
                 noc.setHo(rs.getString("Ho"));
                 noc.setTen(rs.getString("Ten"));
                 noc.setID_NguoiOCung(rs.getString("ID_NguoiOCung"));
@@ -79,6 +79,8 @@ public class NguoiOCungDAO extends PhongTro_ChungDAO<NguoiOCungEntily, Object> {
                 noc.setDiaChi(rs.getString("DiaChi"));
                 noc.setID_Khach(rs.getString("ID_Khach"));
                 list.add(noc);
+                
+                i++;
             }
         } catch (Exception e) {
             

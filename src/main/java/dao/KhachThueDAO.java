@@ -16,8 +16,8 @@ public class KhachThueDAO extends PhongTro_ChungDAO<KhachThueEntily, Object>{
     final String INSERT_SQL = "INSERT into KhachThue (ID_Khach, Ho, CCCD, GioiTinh, SoDienThoai, Email, Ten, HinhAnh, DiaChi) values (?,?,?,?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE KhachThue set Ho = ?, CCCD = ?, GioiTinh = ?, SoDienThoai = ?, Email = ?, Ten = ?, HinhAnh = ?, DiaChi = ? where ID_Khach = ?";
     final String DELETE_SQL = "DELETE KhachThue where ID_Khach = ?";
-    final String SELECT_ALL_SQL = "SELECT * FROM PhongTro";
-    final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM PhongTro where ID_Phong = ?";
+    final String SELECT_ALL_SQL = "SELECT * FROM KhachThue";
+    final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM PhongTro where ID_Khach = ?";
     
     @Override
     public void insert(KhachThueEntily entity) {
@@ -52,11 +52,11 @@ public class KhachThueDAO extends PhongTro_ChungDAO<KhachThueEntily, Object>{
     public List<KhachThueEntily> selectBySql(String sql, Object... args) {
         List<KhachThueEntily> list = new ArrayList<>();
         try {
-            sql = "SELECT ROW_NUMBER() OVER (ORDER BY ID_Khach) AS SoThuTu,* FROM KhachThue";
             ResultSet rs = JdbcHelper.query(sql, args);
+            int i = 1;
             while(rs.next()){
                 KhachThueEntily pt = new KhachThueEntily();
-                pt.setSoThuThu(rs.getInt("SoThuTu"));
+                pt.setSoThuThu(i);
                 pt.setID_khach(rs.getString("ID_Khach"));
                 pt.setHo(rs.getString("Ho"));
                 pt.setCCCD(rs.getString("CCCD"));
@@ -71,6 +71,7 @@ public class KhachThueDAO extends PhongTro_ChungDAO<KhachThueEntily, Object>{
                 pt.setHinhAnh(rs.getString("HinhAnh"));
                 pt.setDiaChi(rs.getString("DiaChi"));
                 list.add(pt);
+                i++;
             }
         } catch (Exception e) {
         }

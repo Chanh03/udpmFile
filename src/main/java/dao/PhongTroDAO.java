@@ -19,7 +19,7 @@ public class PhongTroDAO extends PhongTro_ChungDAO<PhongTroEntily, Object> {
     final String INSERT_SQL = "INSERT into PhongTro (ID_Phong, SoPhong, Dientich, SoGiuong, GiaThue, TrangThai) values (?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE PhongTro set SoLuong = ?, Dientich = ?, SoGiuong = ?, GiaThue = ?, TrangThai = ? where ID_Phong = ?";
     final String DELETE_SQL = "DELETE PhongTro where ID_Phong = ?";
-    final String SELECT_ALL_SQL = "SELECT * FROM NguoiDung";
+    final String SELECT_ALL_SQL = "SELECT * FROM PHongTro";
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM PhongTro where ID_Phong = ?";
 
     @Override
@@ -55,11 +55,11 @@ public class PhongTroDAO extends PhongTro_ChungDAO<PhongTroEntily, Object> {
     public List<PhongTroEntily> selectBySql(String sql, Object... args) {
         List<PhongTroEntily> list = new ArrayList<>();
         try {
-            sql = "SELECT ROW_NUMBER() OVER (ORDER BY ID_Phong) AS SoThuTu, * FROM PhongTro";
             ResultSet rs = JdbcHelper.query(sql);
+            int i = 1;
             while (rs.next()) {
                 PhongTroEntily pt = new PhongTroEntily();
-                pt.setSoThuTu(rs.getInt("SoThuTu"));
+                pt.setSoThuTu(i);
                 pt.setID_Phong(rs.getString("ID_Phong"));
                 pt.setSoPhong(rs.getInt("SoPhong"));
                 pt.setDientich(rs.getInt("Dientich"));
@@ -67,6 +67,7 @@ public class PhongTroDAO extends PhongTro_ChungDAO<PhongTroEntily, Object> {
                 pt.setGiaThue(rs.getInt("GiaThue"));
                 pt.setTrangThai(rs.getString("TrangThai"));
                 list.add(pt);
+                i++;
             }
         } catch (Exception e) {
         }

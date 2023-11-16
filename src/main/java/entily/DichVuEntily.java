@@ -9,7 +9,7 @@ package entily;
  * @author Chanh Chanh
  */
 public class DichVuEntily {
-    private String SoThuTu;
+    private int SoThuTu;
     private String ID_DichVu;
     private String TenDichVu;
     private String DonGia;
@@ -19,7 +19,7 @@ public class DichVuEntily {
     private String TrangThai;
     private String ID_Phong;
 
-    public DichVuEntily(String SoThuTu, String ID_DichVu, String TenDichVu, String DonGia, String Ngay, String Nam, String HinhAnh, String TrangThai, String ID_Phong) {
+    public DichVuEntily(int SoThuTu, String ID_DichVu, String TenDichVu, String DonGia, String Ngay, String Nam, String HinhAnh, String TrangThai, String ID_Phong) {
         this.SoThuTu = SoThuTu;
         this.ID_DichVu = ID_DichVu;
         this.TenDichVu = TenDichVu;
@@ -34,11 +34,11 @@ public class DichVuEntily {
     public DichVuEntily() {
     }
     
-    public String getSoThuTu() {
+    public int getSoThuTu() {
         return SoThuTu;
     }
 
-    public void setSoThuTu(String SoThuTu) {
+    public void setSoThuTu(int SoThuTu) {
         this.SoThuTu = SoThuTu;
     }
 

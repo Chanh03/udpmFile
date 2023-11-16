@@ -50,11 +50,11 @@ public class DichVuDAO extends PhongTro_ChungDAO<DichVuEntily, Object> {
     public List<DichVuEntily> selectBySql(String sql, Object... args) {
         List<DichVuEntily> list = new ArrayList<>();
         try {
-            sql = "SELECT ROW_NUMBER() OVER (ORDER BY ID_DichVu) AS SoThuTu,* FROM DichVu";
             ResultSet rs = JdbcHelper.query(sql, args);
+            int i = 1;
             while (rs.next()) {
                 DichVuEntily dv = new DichVuEntily();
-                dv.setSoThuTu(rs.getString("SoThuTu"));
+                dv.setSoThuTu(i);
                 dv.setID_DichVu(rs.getString("ID_DichVu"));
                 dv.setTenDichVu(rs.getString("TenDichVu"));
                 dv.setDonGia(rs.getString("DonGia"));
@@ -65,6 +65,7 @@ public class DichVuDAO extends PhongTro_ChungDAO<DichVuEntily, Object> {
                 dv.setID_Phong(rs.getString("ID_Phong"));
 
                 list.add(dv);
+                i++;
             }
         } catch (Exception e) {
         }

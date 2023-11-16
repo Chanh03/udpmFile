@@ -25,7 +25,7 @@ import utils.XImage;
  */
 public class DangNhapJFrame extends javax.swing.JFrame {
 
-    NguoiDungDAO dao = new NguoiDungDAO();
+    NguoiDungDAO daoND = new NguoiDungDAO();
     PhongTroJFrame phongTroJFrame = new PhongTroJFrame();
     Connection con;
     PreparedStatement ps;
@@ -52,37 +52,29 @@ public class DangNhapJFrame extends javax.swing.JFrame {
             txtMatKhau.requestFocus();
             updateCanhBao();
         } else { //xác thực người dùng và phân quyền hệ thống
-            boolean dangNhapThanhCong = true;
-            NguoiDungEntily nd = dao.selectById(tenDangNhap);
+            NguoiDungEntily nd = daoND.selectById(tenDangNhap);
             if (nd == null) {
                 Msgbox.alert(this, "Sai Thông Tin Đăng Nhập");
             } else {
-                if (!nd.getMatkhau().equals(password)) {
-                    Msgbox.alert(this, "sSai Thông Tin Đăng Nhập");
-                } else {
+                if (nd.getMatkhau().equalsIgnoreCase(password)) {
                     Auth.user = nd;
                     dispose();
                     phongTroJFrame.setVisible(true);
-
                     phongTroJFrame.setTenDangNhapLabel(nd.getHo() + " " + nd.getTen());
                     phongTroJFrame.setChucVu(nd.getChucVu());
+                } else {
+                    Msgbox.alert(this, "Sai Thông Tin Đăng Nhập");
+
                 }
             }
-            //
-            if (dangNhapThanhCong) {
-                System.out.println("Đăng nhập thành công");
-            } else {
-                JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không chính xác", "Cảnh Báo", JOptionPane.WARNING_MESSAGE);
-            }
-            //
         }
     }
 
     void init() {
         setLocationRelativeTo(null);
         setTitle("Chào mừng đến với Ứng dụng quản lí phòng trọ Việt Anh Ngàn Sao");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setIconImage(XImage.getAppIcon());
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     void updateCanhBao() {

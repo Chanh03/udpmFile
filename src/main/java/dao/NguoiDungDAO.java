@@ -50,16 +50,16 @@ public class NguoiDungDAO extends PhongTro_ChungDAO<NguoiDungEntily, Object> {
         }
         return list.get(0);
     }
-    
-     @Override
+
+    @Override
     public List<NguoiDungEntily> selectBySql(String sql, Object... args) {
         List<NguoiDungEntily> list = new ArrayList<>();
+        int i = 1;
         try {
-            sql = "SELECT ROW_NUMBER() OVER (ORDER BY ID_NguoiDung) AS SoThuTu,* FROM NguoiDung";
             ResultSet rs = JdbcHelper.query(sql, args);
-            while (rs.next()) {                
+            while (rs.next()) {
                 NguoiDungEntily nd = new NguoiDungEntily();
-                nd.setSoThuTu(rs.getInt("SoThuTu"));
+                nd.setSoThuTu(i);
                 nd.setChucVu(rs.getString("ChucVu"));
                 nd.setID_NguoiDung(rs.getString("ID_NguoiDung"));
                 nd.setMatkhau(rs.getString("Matkhau"));
@@ -71,6 +71,7 @@ public class NguoiDungDAO extends PhongTro_ChungDAO<NguoiDungEntily, Object> {
                 nd.setDiaChi(rs.getString("DiaChi"));
                 nd.setID_HopDong(rs.getString("ID_HopDong"));
                 list.add(nd);
+                i++;
             }
         } catch (Exception e) {
         }
