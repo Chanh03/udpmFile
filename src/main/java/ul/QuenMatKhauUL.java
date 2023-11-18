@@ -4,8 +4,21 @@
  */
 package ul;
 
+import dao.NguoiDungDAO;
+import entily.NguoiDungEntily;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Properties;
+import java.util.Random;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.Timer;
 import utils.XImage;
 
@@ -14,7 +27,10 @@ import utils.XImage;
  * @author Trong Phuc
  */
 public class QuenMatKhauUL extends javax.swing.JFrame {
+
+    NguoiDungDAO daoND = new NguoiDungDAO();
     Timer timer;
+
     /**
      * Creates new form QuenMatKhauUL
      */
@@ -28,6 +44,7 @@ public class QuenMatKhauUL extends javax.swing.JFrame {
         setTitle("Quên Mật Khẩu");
         setIconImage(XImage.getAppIcon());
     }
+
     void updateCanhBao() {
         int i = 2000;
         timer = new Timer(i, new ActionListener() {
@@ -45,6 +62,75 @@ public class QuenMatKhauUL extends javax.swing.JFrame {
         timer.start();
     }
 
+    void updateCanhBaoKhongTonTai() {
+        int i = 2000;
+        timer = new Timer(i, new ActionListener() {
+            int progress = 0;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Dừng timer nếu đã hoàn thành
+                lblDaGui.setText("Không Tồn Tại");
+                timer.stop();
+            }
+        });
+
+        //chạy timer ở trên
+        timer.start();
+    }
+
+    void KiemTraNguoiDungCoTonTaiKhong() {
+        String email = txtEmail.getText();
+        List<NguoiDungEntily> list = daoND.selectByEmail(email);
+
+        if (!list.isEmpty()) {
+            String username = "anhnvps30934@fpt.edu.vn";
+            String password = "kavl rimm emhz tewg";
+            Random rd = new Random();
+            int matKhauDaLamTron = (int) Math.round(Math.random() * 999999); // Làm tròn giá trị về số nguyên từ 0 đến 100
+            // Cài đặt thông số kết nối SMTP
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+            props.put("mail.smtp.ssl.protocols", "TLSv1.2"); // Thêm dòng này để chỉ định giao thức TLSv1.2 lỏ này fix khó vc
+
+            // Tạo phiên làm việc
+            Session session = Session.getInstance(props, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
+                }
+            });
+            try {
+                String emailAdmin = "anhnvps30934@gmail.com";
+                String emailUser = txtEmail.getText();
+                String tenChuDe = "Mật Khẩu Mới Cho " + emailUser;
+
+                // Tạo đối tượng MimeMessage
+                Message message = new MimeMessage(session);
+                // Đặt thông tin người gửi
+                message.setFrom(new InternetAddress(emailAdmin));
+                // Đặt thông tin người nhận
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailUser));
+                // Đặt chủ đề
+                message.setSubject(tenChuDe);
+                // Đặt nội dung tin nhắn
+                message.setText("Mật Khẩu Mới : " + matKhauDaLamTron);
+                // Gửi tin nhắn
+                Transport.send(message);
+                System.out.println("Sended : " + tenChuDe);
+                daoND.updatePasswordByEmail(email, matKhauDaLamTron);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Email không tồn tại trong cơ sở dữ liệu
+            updateCanhBaoKhongTonTai();
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,7 +141,7 @@ public class QuenMatKhauUL extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtGmail = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         btnGuiMatKhauMoi = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -68,10 +154,10 @@ public class QuenMatKhauUL extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtGmail.setBackground(new java.awt.Color(239, 244, 255));
-        txtGmail.setForeground(new java.awt.Color(138, 192, 240));
-        txtGmail.setText("             @gmail.com");
-        txtGmail.setBorder(null);
+        txtEmail.setBackground(new java.awt.Color(239, 244, 255));
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtEmail.setForeground(new java.awt.Color(138, 192, 240));
+        txtEmail.setBorder(null);
 
         btnGuiMatKhauMoi.setBackground(new java.awt.Color(138, 192, 240));
         btnGuiMatKhauMoi.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
@@ -102,20 +188,15 @@ public class QuenMatKhauUL extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Google.png"))); // NOI18N
 
-        lblDaGui.setText("đã gửi matkhau");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(lblDaGui, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtGmail, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblDaGui, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblCanhBao, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
@@ -147,7 +228,7 @@ public class QuenMatKhauUL extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtGmail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(lblDaGui, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)))
@@ -181,6 +262,8 @@ public class QuenMatKhauUL extends javax.swing.JFrame {
         // TODO add your handling code here:
         lblDaGui.setText("Đã Gửi");
         updateCanhBao();
+        KiemTraNguoiDungCoTonTaiKhong();
+
     }//GEN-LAST:event_btnGuiMatKhauMoiActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -203,16 +286,24 @@ public class QuenMatKhauUL extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuenMatKhauUL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuenMatKhauUL.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuenMatKhauUL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuenMatKhauUL.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuenMatKhauUL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuenMatKhauUL.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuenMatKhauUL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuenMatKhauUL.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -233,6 +324,6 @@ public class QuenMatKhauUL extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCanhBao;
     private javax.swing.JLabel lblDaGui;
-    private javax.swing.JTextField txtGmail;
+    private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
 }

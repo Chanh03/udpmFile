@@ -20,13 +20,18 @@ import entily.NguoiOCungEntily;
 import entily.PhongTroEntily;
 import entily.ThanhToanEntily;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
@@ -72,7 +77,10 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         fillTableThanhToan();
         setIconImage(XImage.getAppIcon());
     }
-
+    void hienDangNhapJFrame(){
+        DangNhapJFrame dangNhapJFrame = new DangNhapJFrame();
+        dangNhapJFrame.setVisible(true);
+    }
     void filldataPhong() {
         DefaultTableModel model = (DefaultTableModel) tblPhong.getModel();
         model.setRowCount(0);
@@ -101,12 +109,14 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         try {
             List<NguoiDungEntily> list = daoND.selectAll();
             for (NguoiDungEntily nd : list) {
+                String matKhau = nd.getMatkhau();
+                String hiddenPassword = "*".repeat(matKhau.length());
 
                 Object[] row = {
                     nd.getSoThuTu(),
                     nd.getID_NguoiDung(),
                     nd.getTenDangNhap(),
-                    nd.getMatkhau(),
+                    hiddenPassword,
                     nd.getChucVu(),
                     nd.getHo(),
                     nd.getTen(),
@@ -197,7 +207,7 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         }
     }
 
-    public void fillTableThanhToan() {
+    void fillTableThanhToan() {
         DefaultTableModel model = (DefaultTableModel) tblThanhToan.getModel();
         model.setRowCount(0);
         try {
@@ -222,7 +232,7 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         }
     }
 
-    public void fillTableHopDong() {
+    void fillTableHopDong() {
         DefaultTableModel model = (DefaultTableModel) tblHopDong.getModel();
         model.setRowCount(0);
         try {
@@ -284,11 +294,11 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         lblNguoiDung.setText(tenDangNhap);
     }
 
-    public void setChucVu(String chucVu) {
+    void setChucVu(String chucVu) {
         lblChucVu.setText("Chức vụ : " + chucVu);
     }
 
-    private void startClock() {
+    void startClock() {
         Timer timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -298,13 +308,13 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         timer.start();
     }
 
-    private void updateClock() {
+    void updateClock() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String formattedDate = sdf.format(new Date());
         lblThoiGian.setText(formattedDate);
     }
 
-    public void showUserInfo() {
+    void showUserInfo() {
         // Hiển thị thông tin người dùng tại đây
         if (Auth.user != null) {
             String chucVu = Auth.user.getChucVu();
@@ -337,6 +347,51 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         tableDesign(tblNguoiOCung);
     }
 
+    void openFile(String filePath) {
+        try {
+            // Tạo một đối tượng File từ đường dẫn
+            File file = new File(filePath);
+
+            // Kiểm tra xem Desktop được hỗ trợ không
+            if (Desktop.isDesktopSupported()) {
+                // Lấy đối tượng Desktop
+                Desktop desktop = Desktop.getDesktop();
+
+                // Kiểm tra xem tệp tin tồn tại và có thể mở được không
+                if (file.exists() && file.isFile()) {
+                    // Mở tệp tin
+                    desktop.open(file);
+                } else {
+                    System.out.println("Tệp tin không tồn tại hoặc không thể mở.");
+                }
+            } else {
+                System.out.println("Desktop không được hỗ trợ trên hệ thống này.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void openFileChooser() {
+        JFileChooser fileChooser = new JFileChooser();
+        // Hiển thị hộp thoại chọn tệp tin
+        int result = fileChooser.showOpenDialog(null);
+
+        // Kiểm tra xem người dùng đã chọn tệp tin hay không
+        if (result == JFileChooser.APPROVE_OPTION) {
+            // Lấy đối tượng File từ tệp tin được chọn
+            File selectedFile = fileChooser.getSelectedFile();
+
+            // In đường dẫn đến tệp tin được chọn
+            System.out.println("Đường dẫn đến tệp tin: " + selectedFile.getAbsolutePath());
+
+            // Gọi phương thức mở tệp tin
+            openFile(selectedFile.getAbsolutePath());
+        } else {
+            System.out.println("Người dùng đã hủy chọn tệp tin.");
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -352,6 +407,7 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblNguoiDung = new javax.swing.JLabel();
         lblChucVu = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         tbpCHUNG = new javax.swing.JTabbedPane();
         tbpQuanLiPhong = new javax.swing.JTabbedPane();
         spXemDanhSachPhong = new javax.swing.JScrollPane();
@@ -594,6 +650,15 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         lblChucVu.setForeground(new java.awt.Color(255, 255, 255));
         lblChucVu.setText("chucvu");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Đăng Xuất?");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pHeaderLayout = new javax.swing.GroupLayout(pHeader);
         pHeader.setLayout(pHeaderLayout);
         pHeaderLayout.setHorizontalGroup(
@@ -601,13 +666,13 @@ public class PhongTroJFrame extends javax.swing.JFrame {
             .addGroup(pHeaderLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 908, Short.MAX_VALUE)
-                .addGroup(pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pHeaderLayout.createSequentialGroup()
-                        .addComponent(lblNguoiDung, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(121, 121, 121))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pHeaderLayout.createSequentialGroup()
                         .addComponent(lblChucVu)
-                        .addGap(288, 288, 288))))
+                        .addGap(104, 104, 104)
+                        .addComponent(jLabel2))
+                    .addComponent(lblNguoiDung, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(121, 121, 121))
         );
         pHeaderLayout.setVerticalGroup(
             pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -615,7 +680,9 @@ public class PhongTroJFrame extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(lblNguoiDung)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblChucVu)
+                .addGroup(pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblChucVu)
+                    .addComponent(jLabel2))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -864,6 +931,11 @@ public class PhongTroJFrame extends javax.swing.JFrame {
 
         jLabel18.setText("jLabel18");
         jLabel18.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel18MouseClicked(evt);
+            }
+        });
 
         jButton4.setText("THÊM");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -2238,6 +2310,19 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tblKhachMousePressed
 
+    private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
+        // TODO add your handling code here:
+        openFileChooser();
+    }//GEN-LAST:event_jLabel18MouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        int yesNo = JOptionPane.showConfirmDialog(this, "Đăng Xuất ?", "Thông báo", JOptionPane.YES_NO_OPTION);
+        if (yesNo == JOptionPane.YES_OPTION) {
+            dispose();
+            hienDangNhapJFrame();
+        }
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2309,6 +2394,7 @@ public class PhongTroJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

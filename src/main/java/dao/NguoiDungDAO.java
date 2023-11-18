@@ -21,6 +21,8 @@ public class NguoiDungDAO extends PhongTro_ChungDAO<NguoiDungEntily, Object> {
     final String DELETE_SQL = "DELETE NguoiDung where ID_NguoiDung = ?";
     final String SELECT_ALL_SQL = "SELECT * FROM NguoiDung";
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM NguoiDung where TenDangNhap = ?";
+    final String SELECT_BY_GMAIL_SQL = "SELECT * FROM NguoiDung WHERE Email = ?";
+    final String UPDATE_PASSWORD_SQL = "UPDATE NguoiDung SET Matkhau = ? WHERE Email = ?";
 
     @Override
     public void insert(NguoiDungEntily entity) {
@@ -34,7 +36,7 @@ public class NguoiDungDAO extends PhongTro_ChungDAO<NguoiDungEntily, Object> {
 
     @Override
     public void delete(Object id) {
-        JdbcHelper.update(INSERT_SQL, id);
+        JdbcHelper.update(DELETE_SQL, id);
     }
 
     @Override
@@ -62,7 +64,7 @@ public class NguoiDungDAO extends PhongTro_ChungDAO<NguoiDungEntily, Object> {
                 nd.setSoThuTu(i);
                 nd.setChucVu(rs.getString("ChucVu"));
                 nd.setID_NguoiDung(rs.getString("ID_NguoiDung"));
-                nd.setMatkhau(rs.getString("Matkhau"));
+                nd.setMatkhau(rs.getString("MatKhau"));
                 nd.setTenDangNhap(rs.getString("TenDangNhap"));
                 nd.setHo(rs.getString("Ho"));
                 nd.setTen(rs.getString("Ten"));
@@ -76,5 +78,13 @@ public class NguoiDungDAO extends PhongTro_ChungDAO<NguoiDungEntily, Object> {
         } catch (Exception e) {
         }
         return list;
+    }
+
+    public List<NguoiDungEntily> selectByEmail(String email) {
+        return selectBySql(SELECT_BY_GMAIL_SQL, email);
+    }
+
+    public void updatePasswordByEmail(String email, int matkhau) {
+        JdbcHelper.update(UPDATE_PASSWORD_SQL, matkhau, email);
     }
 }
