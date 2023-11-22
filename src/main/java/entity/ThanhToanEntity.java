@@ -2,13 +2,13 @@
  * Hello This Is Vanh
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entily;
+package entity;
 
 /**
  *
  * @author Chanh Chanh
  */
-public class ThanhToanEntily {
+public class ThanhToanEntity {
     private int SoThuTu;
     private String ID_ThanhToan;
     private String NgayThanhToan;
@@ -20,10 +20,10 @@ public class ThanhToanEntily {
     private String TienDichVu;
     private String ID_HopDong;
 
-    public ThanhToanEntily() {
+    public ThanhToanEntity() {
     }
 
-    public ThanhToanEntily(int SoThuTu, String ID_ThanhToan, String NgayThanhToan, String TienPhong, String PhuongThucThanhToan, String ThangThanhToan, String TienDien, String TienNuoc, String TienDichVu, String ID_HopDong) {
+    public ThanhToanEntity(int SoThuTu, String ID_ThanhToan, String NgayThanhToan, String TienPhong, String PhuongThucThanhToan, String ThangThanhToan, String TienDien, String TienNuoc, String TienDichVu, String ID_HopDong) {
         this.SoThuTu = SoThuTu;
         this.ID_ThanhToan = ID_ThanhToan;
         this.NgayThanhToan = NgayThanhToan;

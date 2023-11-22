@@ -6,7 +6,7 @@ package ui;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import dao.NguoiDungDAO;
-import entily.NguoiDungEntily;
+import entity.NguoiDungEntity;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,7 +53,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
             txtMatKhau.requestFocus();
             updateCanhBao();
         } else { //xác thực người dùng và phân quyền hệ thống
-            NguoiDungEntily nd = daoND.selectById(tenDangNhap);
+            NguoiDungEntity nd = daoND.selectById(tenDangNhap);
             if (nd == null) {
                 Msgbox.alert(this, "Sai Thông Tin Đăng Nhập");
             } else {
@@ -115,7 +115,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
 
     void openquenmk() {
         this.dispose();
-        new QuenMatKhauUL().setVisible(true);
+        new QuenMatKhau().setVisible(true);
     }
 
     /**

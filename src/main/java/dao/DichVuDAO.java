@@ -1,6 +1,6 @@
 package dao;
 
-import entily.DichVuEntily;
+import entity.DichVuEntity;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import util.JdbcHelper;
  *
  * @author HOANG HIEN
  */
-public class DichVuDAO extends PhongTro_ChungDAO<DichVuEntily, Object> {
+public class DichVuDAO extends PhongTroChungDAO<DichVuEntity, Object> {
 
     final String INSERT_SQL = "INSERT into DichVu (ID_DichVu,TenDichVu,DonGia,Ngay,Nam,HinhAnh,TrangThai,ID_Phong) values (?,?,?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE DichVu set TenDichVu = ?, DonGia = ?, Ngay = ?, Nam = ?, TrangThai = ?, ID_Phong = ? where ID_DichVu = ?";
@@ -19,27 +19,27 @@ public class DichVuDAO extends PhongTro_ChungDAO<DichVuEntily, Object> {
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM DichVu where ID_DichVu = ?";
 
     @Override
-    public void insert(DichVuEntily entity) {
-        JdbcHelper.update(INSERT_SQL, entity.getTenDichVu(), entity.getDonGia(), entity.getNgay(), entity.getNam(), entity.getTrangThai(), entity.getID_DichVu());
+    public void insert(DichVuEntity entity) {
+        JdbcHelper.update(INSERT_SQL, entity.getID_DichVu(),entity.getTenDichVu(),entity.getDonGia(),entity.getNgay(),entity.getNam(),entity.getHinhAnh(),entity.getTrangThai(),entity.getID_Phong());
     }
 
     @Override
-    public void update(DichVuEntily entity) {
-        JdbcHelper.update(UPDATE_SQL, entity.getTenDichVu(), entity.getDonGia(), entity.getNgay(), entity.getNam(), entity.getTrangThai(), entity.getID_DichVu());
+    public void update(DichVuEntity entity) {
+        JdbcHelper.update(UPDATE_SQL, entity.getTenDichVu(), entity.getDonGia(), entity.getNgay(), entity.getNam(), entity.getTrangThai(),entity.getID_Phong(), entity.getID_DichVu());
     }
 
     @Override
     public void delete(Object id) {
-        JdbcHelper.update(INSERT_SQL, id);
+        JdbcHelper.update(DELETE_SQL, id);
     }
 
     @Override
-    public List<DichVuEntily> selectAll() {
+    public List<DichVuEntity> selectAll() {
         return selectBySql(SELECT_ALL_SQL);
     }
 
-    public DichVuEntily selectById(Object id) {
-        List<DichVuEntily> list = selectBySql(SELECT_BY_ID_ALL_SQL, id);
+    public DichVuEntity selectById(Object id) {
+        List<DichVuEntity> list = selectBySql(SELECT_BY_ID_ALL_SQL, id);
         if (list.isEmpty()) {
             return null;
         }
@@ -47,19 +47,19 @@ public class DichVuDAO extends PhongTro_ChungDAO<DichVuEntily, Object> {
     }
 
     @Override
-    public List<DichVuEntily> selectBySql(String sql, Object... args) {
-        List<DichVuEntily> list = new ArrayList<>();
+    public List<DichVuEntity> selectBySql(String sql, Object... args) {
+        List<DichVuEntity> list = new ArrayList<>();
         try {
             ResultSet rs = JdbcHelper.query(sql, args);
             int i = 1;
             while (rs.next()) {
-                DichVuEntily dv = new DichVuEntily();
+                DichVuEntity dv = new DichVuEntity();
                 dv.setSoThuTu(i);
                 dv.setID_DichVu(rs.getString("ID_DichVu"));
                 dv.setTenDichVu(rs.getString("TenDichVu"));
                 dv.setDonGia(rs.getString("DonGia"));
-                dv.setNgay(rs.getString("Ngay"));
-                dv.setNam(rs.getString("Nam"));
+                dv.setNgay(rs.getDate("Ngay"));
+                dv.setNam(rs.getDate("Nam"));
                 dv.setHinhAnh(rs.getString("HinhAnh"));
                 dv.setTrangThai(rs.getString("TrangThai"));
                 dv.setID_Phong(rs.getString("ID_Phong"));

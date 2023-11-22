@@ -2,24 +2,30 @@
  * Hello This Is Vanh
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entily;
+package entity;
+
+import java.util.Date;
 
 /**
  *
  * @author Chanh Chanh
  */
-public class DichVuEntily {
+public class DichVuEntity {
+
     private int SoThuTu;
     private String ID_DichVu;
     private String TenDichVu;
     private String DonGia;
-    private String Ngay;
-    private String Nam;
+    private Date Ngay;
+    private Date Nam;
     private String HinhAnh;
     private String TrangThai;
     private String ID_Phong;
 
-    public DichVuEntily(int SoThuTu, String ID_DichVu, String TenDichVu, String DonGia, String Ngay, String Nam, String HinhAnh, String TrangThai, String ID_Phong) {
+    public DichVuEntity() {
+    }
+
+    public DichVuEntity(int SoThuTu, String ID_DichVu, String TenDichVu, String DonGia, Date Ngay, Date Nam, String HinhAnh, String TrangThai, String ID_Phong) {
         this.SoThuTu = SoThuTu;
         this.ID_DichVu = ID_DichVu;
         this.TenDichVu = TenDichVu;
@@ -31,9 +37,6 @@ public class DichVuEntily {
         this.ID_Phong = ID_Phong;
     }
 
-    public DichVuEntily() {
-    }
-    
     public int getSoThuTu() {
         return SoThuTu;
     }
@@ -66,19 +69,19 @@ public class DichVuEntily {
         this.DonGia = DonGia;
     }
 
-    public String getNgay() {
+    public Date getNgay() {
         return Ngay;
     }
 
-    public void setNgay(String Ngay) {
+    public void setNgay(Date Ngay) {
         this.Ngay = Ngay;
     }
 
-    public String getNam() {
+    public Date getNam() {
         return Nam;
     }
 
-    public void setNam(String Nam) {
+    public void setNam(Date Nam) {
         this.Nam = Nam;
     }
 
@@ -105,6 +108,5 @@ public class DichVuEntily {
     public void setID_Phong(String ID_Phong) {
         this.ID_Phong = ID_Phong;
     }
-    
-    
+
 }

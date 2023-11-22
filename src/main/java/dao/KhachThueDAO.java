@@ -4,44 +4,43 @@
  */
 package dao;
 
-import entily.KhachThueEntily;
+import entity.KhachThueEntity;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import util.JdbcHelper;
 
-
-public class KhachThueDAO extends PhongTro_ChungDAO<KhachThueEntily, Object>{
+public class KhachThueDAO extends PhongTroChungDAO<KhachThueEntity, Object> {
 
     final String INSERT_SQL = "INSERT into KhachThue (ID_Khach, Ho, CCCD, GioiTinh, SoDienThoai, Email, Ten, HinhAnh, DiaChi) values (?,?,?,?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE KhachThue set Ho = ?, CCCD = ?, GioiTinh = ?, SoDienThoai = ?, Email = ?, Ten = ?, HinhAnh = ?, DiaChi = ? where ID_Khach = ?";
     final String DELETE_SQL = "DELETE KhachThue where ID_Khach = ?";
     final String SELECT_ALL_SQL = "SELECT * FROM KhachThue";
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM PhongTro where ID_Khach = ?";
-    
+
     @Override
-    public void insert(KhachThueEntily entity) {
-        JdbcHelper.update(INSERT_SQL, entity.getID_khach(), entity.getHo(),entity.getCCCD(),entity.getGioiTinh(),entity.getSoDienThoai(),entity.getTen(),entity.getEmail(),entity.getDiaChi(),entity.getHinhAnh());
+    public void insert(KhachThueEntity entity) {
+        JdbcHelper.update(INSERT_SQL, entity.getID_khach(), entity.getHo(), entity.getCCCD(), entity.getGioiTinh(), entity.getSoDienThoai(), entity.getTen(), entity.getEmail(), entity.getDiaChi(), entity.getHinhAnh());
     }
 
     @Override
-    public void update(KhachThueEntily entity) {
-        JdbcHelper.update(INSERT_SQL, entity.getID_khach(), entity.getHo(),entity.getCCCD(),entity.getGioiTinh(),entity.getSoDienThoai(),entity.getTen(),entity.getEmail(),entity.getDiaChi(),entity.getHinhAnh());
+    public void update(KhachThueEntity entity) {
+        JdbcHelper.update(UPDATE_SQL, entity.getHo(), entity.getCCCD(), entity.getGioiTinh(), entity.getSoDienThoai(), entity.getEmail(), entity.getTen(), entity.getHinhAnh(), entity.getDiaChi(), entity.getID_khach());
     }
 
     @Override
     public void delete(Object id) {
-          JdbcHelper.update(INSERT_SQL, id);
+        JdbcHelper.update(DELETE_SQL, id);
     }
 
     @Override
-    public List<KhachThueEntily> selectAll() {
+    public List<KhachThueEntity> selectAll() {
         return selectBySql(SELECT_ALL_SQL);
     }
 
     @Override
-    public KhachThueEntily selectById(Object id) {
-        List<KhachThueEntily> list = selectBySql(SELECT_BY_ID_ALL_SQL, id);
+    public KhachThueEntity selectById(Object id) {
+        List<KhachThueEntity> list = selectBySql(SELECT_BY_ID_ALL_SQL, id);
         if (list.isEmpty()) {
             return null;
         }
@@ -49,13 +48,13 @@ public class KhachThueDAO extends PhongTro_ChungDAO<KhachThueEntily, Object>{
     }
 
     @Override
-    public List<KhachThueEntily> selectBySql(String sql, Object... args) {
-        List<KhachThueEntily> list = new ArrayList<>();
+    public List<KhachThueEntity> selectBySql(String sql, Object... args) {
+        List<KhachThueEntity> list = new ArrayList<>();
         try {
             ResultSet rs = JdbcHelper.query(sql, args);
             int i = 1;
-            while(rs.next()){
-                KhachThueEntily pt = new KhachThueEntily();
+            while (rs.next()) {
+                KhachThueEntity pt = new KhachThueEntity();
                 pt.setSoThuThu(i);
                 pt.setID_khach(rs.getString("ID_Khach"));
                 pt.setHo(rs.getString("Ho"));
@@ -76,6 +75,6 @@ public class KhachThueDAO extends PhongTro_ChungDAO<KhachThueEntily, Object>{
         } catch (Exception e) {
         }
         return list;
- }
-    
+    }
+
 }

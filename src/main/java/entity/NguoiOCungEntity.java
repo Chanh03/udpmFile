@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entily;
+package entity;
 
 /**
  *
  * @author HOANG HIEN
  */
-public class NguoiOCungEntily {
+public class NguoiOCungEntity {
 
     private int SoThuTu;
     private String Ho;
@@ -22,7 +22,7 @@ public class NguoiOCungEntily {
     private String DiaChi;
     private String ID_Khach;
 
-    public NguoiOCungEntily(int SoThuTu, String Ho, String Ten, String ID_NguoiOCung, String Email, String HinhAnh, String SoDienThoai, String GioiTinh, String CCCD, String DiaChi, String ID_Khach) {
+    public NguoiOCungEntity(int SoThuTu, String Ho, String Ten, String ID_NguoiOCung, String Email, String HinhAnh, String SoDienThoai, String GioiTinh, String CCCD, String DiaChi, String ID_Khach) {
         this.SoThuTu = SoThuTu;
         this.Ho = Ho;
         this.Ten = Ten;
@@ -36,7 +36,7 @@ public class NguoiOCungEntily {
         this.ID_Khach = ID_Khach;
     }
 
-    public NguoiOCungEntily() {
+    public NguoiOCungEntity() {
     }
     
 

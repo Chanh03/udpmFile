@@ -5,7 +5,7 @@
 package util;
 
 
-import entily.NguoiDungEntily;
+import entity.NguoiDungEntity;
 
 /**
  *
@@ -13,7 +13,7 @@ import entily.NguoiDungEntily;
  */
 public class Auth {
     //đối tượng chứa thông tin cho người dùng đăng nhập vào
-    public static NguoiDungEntily user = null;
+    public static NguoiDungEntity user = null;
     //xóa thông tin
     public static void clear() {
         Auth.user = null;

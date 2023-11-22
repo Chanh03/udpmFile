@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entily;
+package entity;
 
 import java.util.List;
 
  
-public class KhachThueEntily {
+public class KhachThueEntity {
     private int SoThuThu;
     private String ID_khach;
     private String Ho;
@@ -19,10 +19,10 @@ public class KhachThueEntily {
     private String HinhAnh;
     private String DiaChi;
 
-    public KhachThueEntily() {
+    public KhachThueEntity() {
     }
 
-    public KhachThueEntily(int SoThuThu, String ID_khach, String Ho, String CCCD, String GioiTinh, String SoDienThoai, String Email, String Ten, String HinhAnh, String DiaChi) {
+    public KhachThueEntity(int SoThuThu, String ID_khach, String Ho, String CCCD, String GioiTinh, String SoDienThoai, String Email, String Ten, String HinhAnh, String DiaChi) {
         this.SoThuThu = SoThuThu;
         this.ID_khach = ID_khach;
         this.Ho = Ho;

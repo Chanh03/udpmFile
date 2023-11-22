@@ -4,7 +4,7 @@
  */
 package dao;
 
-import entily.NguoiOCungEntily;
+import entity.NguoiOCungEntity;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import util.JdbcHelper;
  *
  * @author HOANG HIEN
  */
-public class NguoiOCungDAO extends PhongTro_ChungDAO<NguoiOCungEntily, Object> {
+public class NguoiOCungDAO extends PhongTroChungDAO<NguoiOCungEntity, Object> {
 
     final String INSERT_SQL = " INSERT into NguoiOCung (Ten,Ho,ID_NguoiOCung,Email,HinhAnh,SoDienThoai,GioiTinh,CCCD,DiaChi,ID_Khach) values (?,?,?,?,?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE NguoiOCung set Ten = ?, Ho = ?,  Email = ?, HinhAnh = ?, SoDienThoai = ?, GioiTinh = ?, CCCD = ?, DiaChi = ?, ID_Khach = ? where ID_NguoiOCung = ?";
@@ -23,12 +23,12 @@ public class NguoiOCungDAO extends PhongTro_ChungDAO<NguoiOCungEntily, Object> {
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM NguoiOCung where ID_NguoiOCung = ?";
 
     @Override
-    public void insert(NguoiOCungEntily entity) {
+    public void insert(NguoiOCungEntity entity) {
         JdbcHelper.update(INSERT_SQL, entity.getHo(), entity.getTen(), entity.getID_NguoiOCung(), entity.getEmail(), entity.getHinhAnh(), entity.getSoDienThoai(), entity.getGioiTinh(), entity.getCCCD(), entity.getDiaChi(), entity.getID_Khach());
     }
 
     @Override
-    public void update(NguoiOCungEntily entity) {
+    public void update(NguoiOCungEntity entity) {
         JdbcHelper.update(UPDATE_SQL, entity.getHo(), entity.getTen(), entity.getID_NguoiOCung(), entity.getEmail(), entity.getHinhAnh(), entity.getSoDienThoai(), entity.getGioiTinh(), entity.getCCCD(), entity.getDiaChi(), entity.getID_Khach());
     }
 
@@ -36,13 +36,13 @@ public class NguoiOCungDAO extends PhongTro_ChungDAO<NguoiOCungEntily, Object> {
         JdbcHelper.update(INSERT_SQL, id);
     }
 
-    public List<NguoiOCungEntily> selectAll() {
+    public List<NguoiOCungEntity> selectAll() {
         return selectBySql(SELECT_ALL_SQL);
     }
 
     @Override
-    public NguoiOCungEntily selectById(Object id) {
-        List<NguoiOCungEntily> list = selectBySql(SELECT_BY_ID_ALL_SQL, id);
+    public NguoiOCungEntity selectById(Object id) {
+        List<NguoiOCungEntity> list = selectBySql(SELECT_BY_ID_ALL_SQL, id);
         if (list.isEmpty()) {
             return null;
         }
@@ -55,14 +55,14 @@ public class NguoiOCungDAO extends PhongTro_ChungDAO<NguoiOCungEntily, Object> {
      * @param args
      * @return
      */
-    public List<NguoiOCungEntily> selectBySql(String sql, Object... args) {
-        List<NguoiOCungEntily> list = new ArrayList<>();
+    public List<NguoiOCungEntity> selectBySql(String sql, Object... args) {
+        List<NguoiOCungEntity> list = new ArrayList<>();
         try {
 
             ResultSet rs = JdbcHelper.query(sql);
             int i = 1;
             while (rs.next()) {
-                NguoiOCungEntily noc = new NguoiOCungEntily();
+                NguoiOCungEntity noc = new NguoiOCungEntity();
                 noc.setSoThuTu(i);
                 noc.setHo(rs.getString("Ho"));
                 noc.setTen(rs.getString("Ten"));

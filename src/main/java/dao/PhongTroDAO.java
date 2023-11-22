@@ -4,7 +4,7 @@
  */
 package dao;
 
-import entily.PhongTroEntily;
+import entity.PhongTroEntity;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import util.JdbcHelper;
  *
  * @author Trong Phuc
  */
-public class PhongTroDAO extends PhongTro_ChungDAO<PhongTroEntily, Object> {
+public class PhongTroDAO extends PhongTroChungDAO<PhongTroEntity, Object> {
 
     final String INSERT_SQL = "INSERT into PhongTro (ID_Phong, SoPhong, Dientich, SoGiuong, GiaThue, TrangThai) values (?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE PhongTro set SoPhong = ?, Dientich = ?, SoGiuong = ?, GiaThue = ?, TrangThai = ? where ID_Phong = ?";
@@ -23,12 +23,12 @@ public class PhongTroDAO extends PhongTro_ChungDAO<PhongTroEntily, Object> {
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM PhongTro where ID_Phong = ?";
 
     @Override
-    public void insert(PhongTroEntily entity) {
+    public void insert(PhongTroEntity entity) {
         JdbcHelper.update(INSERT_SQL, entity.getID_Phong(), entity.getSoPhong(), entity.getDientich(), entity.getSoGiuong(), entity.getGiaThue(), entity.getTrangThai());
     }
 
     @Override
-    public void update(PhongTroEntily entity) {
+    public void update(PhongTroEntity entity) {
         JdbcHelper.update(UPDATE_SQL, entity.getSoPhong(), entity.getDientich(), entity.getSoGiuong(), entity.getGiaThue(), entity.getTrangThai(), entity.getID_Phong());
     }
 
@@ -38,13 +38,13 @@ public class PhongTroDAO extends PhongTro_ChungDAO<PhongTroEntily, Object> {
     }
 
     @Override
-    public List<PhongTroEntily> selectAll() {
+    public List<PhongTroEntity> selectAll() {
         return selectBySql(SELECT_ALL_SQL);
     }
 
     @Override
-    public PhongTroEntily selectById(Object id) {
-        List<PhongTroEntily> list = selectBySql(SELECT_BY_ID_ALL_SQL, id);
+    public PhongTroEntity selectById(Object id) {
+        List<PhongTroEntity> list = selectBySql(SELECT_BY_ID_ALL_SQL, id);
         if (list.isEmpty()) {
             return null;
         }
@@ -52,13 +52,13 @@ public class PhongTroDAO extends PhongTro_ChungDAO<PhongTroEntily, Object> {
     }
 
     @Override
-    public List<PhongTroEntily> selectBySql(String sql, Object... args) {
-        List<PhongTroEntily> list = new ArrayList<>();
+    public List<PhongTroEntity> selectBySql(String sql, Object... args) {
+        List<PhongTroEntity> list = new ArrayList<>();
         try {
             ResultSet rs = JdbcHelper.query(sql);
             int i = 1;
             while (rs.next()) {
-                PhongTroEntily pt = new PhongTroEntily();
+                PhongTroEntity pt = new PhongTroEntity();
                 pt.setSoThuTu(i);
                 pt.setID_Phong(rs.getString("ID_Phong"));
                 pt.setSoPhong(rs.getInt("SoPhong"));

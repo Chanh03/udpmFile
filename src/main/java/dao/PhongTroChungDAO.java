@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Trong Phuc
  */
-public abstract class PhongTro_ChungDAO<EntityType, KeyType> {
+public abstract class PhongTroChungDAO<EntityType, KeyType> {
     
     public abstract void insert(EntityType entity);
 
