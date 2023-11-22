@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ul;
+package ui;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import dao.DichVuDAO;
@@ -37,13 +37,13 @@ import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import utils.Auth;
-import utils.Msgbox;
-import utils.XImage;
+import util.Auth;
+import util.Msgbox;
+import util.XImage;
 
 /**
  *
- * @author Huy Kun
+ * @author Chanh Chanh
  */
 public class PhongTroJFrame extends javax.swing.JFrame {
 
@@ -77,10 +77,12 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         fillTableThanhToan();
         setIconImage(XImage.getAppIcon());
     }
-    void hienDangNhapJFrame(){
+
+    void hienDangNhapJFrame() {
         DangNhapJFrame dangNhapJFrame = new DangNhapJFrame();
         dangNhapJFrame.setVisible(true);
     }
+
     void filldataPhong() {
         DefaultTableModel model = (DefaultTableModel) tblPhong.getModel();
         model.setRowCount(0);
@@ -127,7 +129,7 @@ public class PhongTroJFrame extends javax.swing.JFrame {
                 model.addRow(row);
             }
         } catch (Exception e) {
-            Msgbox.alert(this, "Loi Truy Van Nguoi Dung ");
+            Msgbox.alert(this, "Loi Truy Van Nguoi Dung");
         }
     }
 
@@ -268,15 +270,15 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         txtTrangThai.setText(model.getTrangThai());
     }
 
-    void getfromPhong() {
+    PhongTroEntily getfromPhong() {
         PhongTroEntily pt = new PhongTroEntily();
-        pt.setID_Phong(txtIDPhong.getText());
+        pt.setID_Phong((txtIDPhong.getText()));
         pt.setSoPhong(Integer.parseInt(txtSoPhong.getText()));
         pt.setDientich(Integer.parseInt(txtDientich.getText()));
         pt.setSoGiuong(Integer.parseInt(txtSoGiuong.getText()));
         pt.setGiaThue(Integer.parseInt(txtGiaThue.getText()));
         pt.setTrangThai(txtTrangThai.getText());
-
+        return pt;
     }
 
     void currentTable(int a) {
@@ -290,12 +292,16 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         txtTrangThai.setText(String.valueOf(tblPhong.getValueAt(a, 6)));
     }
 
-    public void setTenDangNhapLabel(String tenDangNhap) {
+    void setTenDangNhapLabel(String tenDangNhap) {
         lblNguoiDung.setText(tenDangNhap);
     }
 
-    void setChucVu(String chucVu) {
+    void setChucVuLabel(String chucVu) {
         lblChucVu.setText("Chức vụ : " + chucVu);
+    }
+
+    void phanQuyenNguoiDung() {
+        btnNguoiDung.setVisible(false);
     }
 
     void startClock() {
@@ -389,6 +395,41 @@ public class PhongTroJFrame extends javax.swing.JFrame {
             openFile(selectedFile.getAbsolutePath());
         } else {
             System.out.println("Người dùng đã hủy chọn tệp tin.");
+        }
+    }
+
+    void insertPhong() {
+        PhongTroEntily Phong = getfromPhong();
+        try {
+            daoP.insert(Phong);
+            this.filldataPhong();   // fill => load lai du lieu do len bang
+            JOptionPane.showMessageDialog(this, "thêm thành công");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "thêm thất bại");
+        }
+    }
+
+    void updatePhong() {
+        PhongTroEntily Phong = getfromPhong();
+        try {
+            daoP.update(Phong);
+            this.filldataPhong();
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+            tbpQuanLiPhong.setSelectedIndex(0);
+            tblPhong.getSelectedRow();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+        }
+    }
+
+    void deletePhong() {
+        String id_phong = txtIDPhong.getText();
+        try {
+            daoP.delete(id_phong);
+            this.filldataPhong();
+        } catch (Exception e) {
         }
     }
 
@@ -745,10 +786,25 @@ public class PhongTroJFrame extends javax.swing.JFrame {
         jLabel9.setText("TRẠNG THÁI:");
 
         jButton1.setText("THÊM");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("XÓA");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("CẬP NHẬT");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton22.setText("<<");
         jButton22.addActionListener(new java.awt.event.ActionListener() {
@@ -2322,6 +2378,21 @@ public class PhongTroJFrame extends javax.swing.JFrame {
             hienDangNhapJFrame();
         }
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        insertPhong();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        deletePhong();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        updatePhong();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

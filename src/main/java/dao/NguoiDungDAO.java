@@ -7,7 +7,7 @@ package dao;
 import entily.NguoiDungEntily;
 import java.util.ArrayList;
 import java.util.List;
-import utils.JdbcHelper;
+import util.JdbcHelper;
 import java.sql.ResultSet;
 
 /**
@@ -84,7 +84,7 @@ public class NguoiDungDAO extends PhongTro_ChungDAO<NguoiDungEntily, Object> {
         return selectBySql(SELECT_BY_GMAIL_SQL, email);
     }
 
-    public void updatePasswordByEmail(String email, int matkhau) {
+    public void updatePasswordByEmail(String email, String matkhau) {
         JdbcHelper.update(UPDATE_PASSWORD_SQL, matkhau, email);
     }
 }

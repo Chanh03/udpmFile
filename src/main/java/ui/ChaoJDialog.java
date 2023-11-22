@@ -2,7 +2,7 @@
  * Hello This Is Vanh
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ul;
+package ui;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.event.ActionEvent;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 import javax.swing.UIManager;
-import utils.XImage;
+import util.XImage;
 
 /**
  *

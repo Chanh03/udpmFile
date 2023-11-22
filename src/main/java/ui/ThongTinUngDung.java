@@ -2,7 +2,7 @@
  * Hello This Is Vanh
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ul;
+package ui;
 
 import javax.swing.JFrame;
 

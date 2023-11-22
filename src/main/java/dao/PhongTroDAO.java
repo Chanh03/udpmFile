@@ -8,7 +8,7 @@ import entily.PhongTroEntily;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import utils.JdbcHelper;
+import util.JdbcHelper;
 
 /**
  *
@@ -17,7 +17,7 @@ import utils.JdbcHelper;
 public class PhongTroDAO extends PhongTro_ChungDAO<PhongTroEntily, Object> {
 
     final String INSERT_SQL = "INSERT into PhongTro (ID_Phong, SoPhong, Dientich, SoGiuong, GiaThue, TrangThai) values (?,?,?,?,?,?)";
-    final String UPDATE_SQL = "UPDATE PhongTro set SoLuong = ?, Dientich = ?, SoGiuong = ?, GiaThue = ?, TrangThai = ? where ID_Phong = ?";
+    final String UPDATE_SQL = "UPDATE PhongTro set SoPhong = ?, Dientich = ?, SoGiuong = ?, GiaThue = ?, TrangThai = ? where ID_Phong = ?";
     final String DELETE_SQL = "DELETE PhongTro where ID_Phong = ?";
     final String SELECT_ALL_SQL = "SELECT * FROM PHongTro";
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM PhongTro where ID_Phong = ?";
@@ -34,7 +34,7 @@ public class PhongTroDAO extends PhongTro_ChungDAO<PhongTroEntily, Object> {
 
     @Override
     public void delete(Object id) {
-        JdbcHelper.update(INSERT_SQL, id);
+        JdbcHelper.update(DELETE_SQL, id);
     }
 
     @Override

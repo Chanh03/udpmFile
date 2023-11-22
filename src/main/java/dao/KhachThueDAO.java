@@ -8,7 +8,7 @@ import entily.KhachThueEntily;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import utils.JdbcHelper;
+import util.JdbcHelper;
 
 
 public class KhachThueDAO extends PhongTro_ChungDAO<KhachThueEntily, Object>{

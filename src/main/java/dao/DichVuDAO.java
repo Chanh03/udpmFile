@@ -4,7 +4,7 @@ import entily.DichVuEntily;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import utils.JdbcHelper;
+import util.JdbcHelper;
 
 /**
  *
