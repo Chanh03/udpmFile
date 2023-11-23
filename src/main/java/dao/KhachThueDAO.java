@@ -15,7 +15,7 @@ public class KhachThueDAO extends PhongTroChungDAO<KhachThueEntity, Object> {
     final String INSERT_SQL = "INSERT into KhachThue (ID_Khach, Ho, CCCD, GioiTinh, SoDienThoai, Email, Ten, HinhAnh, DiaChi) values (?,?,?,?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE KhachThue set Ho = ?, CCCD = ?, GioiTinh = ?, SoDienThoai = ?, Email = ?, Ten = ?, HinhAnh = ?, DiaChi = ? where ID_Khach = ?";
     final String DELETE_SQL = "DELETE KhachThue where ID_Khach = ?";
-    final String SELECT_ALL_SQL = "SELECT * FROM KhachThue";
+    final String SELECT_ALL_SQL = "SELECT ID_Khach, Ho, CCCD, GioiTinh, SoDienThoai, Email, Ten, HInhAnh, DiaChi FROM KhachThue";
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM PhongTro where ID_Khach = ?";
 
     @Override

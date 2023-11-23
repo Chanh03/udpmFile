@@ -18,7 +18,7 @@ public class ThanhToanDAO  extends PhongTroChungDAO<ThanhToanEntity, Object> {
     final String INSERT_SQL = "INSERT into ThanhToan (ID_ThanhToan,NgayThanhToan,TienPhong,PhuongThucThanhToan,ThangThanhToan,TienDien,TienNuoc,TienDichVu,ID_HopDong) values (?,?,?,?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE ThanhToan set NgayThanhToan = ?, TienPhong = ?, PhuongThucThanhToan = ?, ThangThanhToan = ?, TienDien = ?, TienNuoc = ?, TienDichVu = ?, ID_HopDong = ? where ID_ThanhToan = ?";
     final String DELETE_SQL = "DELETE ThanhToan where ID_ThanhToan = ?";
-    final String SELECT_ALL_SQL = "SELECT * FROM ThanhToan";
+    final String SELECT_ALL_SQL = "SELECT ID_ThanhToan, NgayThanhToan, TienPhong, PhuongThucThanhToan, ThangThanhToan, TienDien, TienNuoc, TienDichVu, ID_HopDong FROM ThanhToan";
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM ThanhToan where ID_ThanhToan = ?";
 
     @Override
@@ -59,10 +59,10 @@ List<ThanhToanEntity> list = selectBySql(SELECT_BY_ID_ALL_SQL, id);
                 ThanhToanEntity tt = new ThanhToanEntity();
                 tt.setSoThuTu(i);
                 tt.setID_ThanhToan(rs.getString("ID_ThanhToan"));
-                tt.setNgayThanhToan(rs.getString("NgayThanhToan"));
+                tt.setNgayThanhToan(rs.getDate("NgayThanhToan"));
                 tt.setTienPhong(rs.getString("TienPhong"));
                 tt.setPhuongThucThanhToan(rs.getString("PhuongThucThanhToan"));
-                tt.setThangThanhToan(rs.getString("ThangThanhToan"));
+                tt.setThangThanhToan(rs.getDate("ThangThanhToan"));
                 tt.setTienDien(rs.getString("TienDien"));
                 tt.setTienNuoc(rs.getString("TienNuoc"));
                 tt.setTienDichVu(rs.getString("TienDichVu"));

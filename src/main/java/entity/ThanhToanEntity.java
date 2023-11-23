@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
-
+import java.util.Date;
 /**
  *
  * @author Chanh Chanh
@@ -11,10 +11,10 @@ package entity;
 public class ThanhToanEntity {
     private int SoThuTu;
     private String ID_ThanhToan;
-    private String NgayThanhToan;
+    private Date NgayThanhToan;
     private String TienPhong;
     private String PhuongThucThanhToan;
-    private String ThangThanhToan;
+    private Date ThangThanhToan;
     private String TienDien;
     private String TienNuoc;
     private String TienDichVu;
@@ -23,7 +23,7 @@ public class ThanhToanEntity {
     public ThanhToanEntity() {
     }
 
-    public ThanhToanEntity(int SoThuTu, String ID_ThanhToan, String NgayThanhToan, String TienPhong, String PhuongThucThanhToan, String ThangThanhToan, String TienDien, String TienNuoc, String TienDichVu, String ID_HopDong) {
+    public ThanhToanEntity(int SoThuTu, String ID_ThanhToan, Date NgayThanhToan, String TienPhong, String PhuongThucThanhToan, Date ThangThanhToan, String TienDien, String TienNuoc, String TienDichVu, String ID_HopDong) {
         this.SoThuTu = SoThuTu;
         this.ID_ThanhToan = ID_ThanhToan;
         this.NgayThanhToan = NgayThanhToan;
@@ -52,11 +52,11 @@ public class ThanhToanEntity {
         this.ID_ThanhToan = ID_ThanhToan;
     }
 
-    public String getNgayThanhToan() {
+    public Date getNgayThanhToan() {
         return NgayThanhToan;
     }
 
-    public void setNgayThanhToan(String NgayThanhToan) {
+    public void setNgayThanhToan(Date NgayThanhToan) {
         this.NgayThanhToan = NgayThanhToan;
     }
 
@@ -76,11 +76,11 @@ public class ThanhToanEntity {
         this.PhuongThucThanhToan = PhuongThucThanhToan;
     }
 
-    public String getThangThanhToan() {
+    public Date getThangThanhToan() {
         return ThangThanhToan;
     }
 
-    public void setThangThanhToan(String ThangThanhToan) {
+    public void setThangThanhToan(Date ThangThanhToan) {
         this.ThangThanhToan = ThangThanhToan;
     }
 
@@ -115,5 +115,8 @@ public class ThanhToanEntity {
     public void setID_HopDong(String ID_HopDong) {
         this.ID_HopDong = ID_HopDong;
     }
+
+    
+
     
 }

@@ -15,17 +15,17 @@ public class DichVuDAO extends PhongTroChungDAO<DichVuEntity, Object> {
     final String INSERT_SQL = "INSERT into DichVu (ID_DichVu,TenDichVu,DonGia,Ngay,Nam,HinhAnh,TrangThai,ID_Phong) values (?,?,?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE DichVu set TenDichVu = ?, DonGia = ?, Ngay = ?, Nam = ?, TrangThai = ?, ID_Phong = ? where ID_DichVu = ?";
     final String DELETE_SQL = "DELETE NguoiDung where ID_DichVu = ?";
-    final String SELECT_ALL_SQL = "SELECT * FROM DichVu";
+    final String SELECT_ALL_SQL = "select ID_DichVu,TenDichVu,DonGia,Ngay,Nam,HinhAnh,TrangThai,ID_Phong from DichVu";
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM DichVu where ID_DichVu = ?";
 
     @Override
     public void insert(DichVuEntity entity) {
-        JdbcHelper.update(INSERT_SQL, entity.getID_DichVu(),entity.getTenDichVu(),entity.getDonGia(),entity.getNgay(),entity.getNam(),entity.getHinhAnh(),entity.getTrangThai(),entity.getID_Phong());
+        JdbcHelper.update(INSERT_SQL, entity.getID_DichVu(), entity.getTenDichVu(), entity.getDonGia(), entity.getNgay(), entity.getNam(), entity.getHinhAnh(), entity.getTrangThai(), entity.getID_Phong());
     }
 
     @Override
     public void update(DichVuEntity entity) {
-        JdbcHelper.update(UPDATE_SQL, entity.getTenDichVu(), entity.getDonGia(), entity.getNgay(), entity.getNam(), entity.getTrangThai(),entity.getID_Phong(), entity.getID_DichVu());
+        JdbcHelper.update(UPDATE_SQL, entity.getTenDichVu(), entity.getDonGia(), entity.getNgay(), entity.getNam(), entity.getTrangThai(), entity.getID_Phong(), entity.getID_DichVu());
     }
 
     @Override

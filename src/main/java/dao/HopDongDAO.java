@@ -20,7 +20,7 @@ public class HopDongDAO extends PhongTroChungDAO<HopDongEntity, Object> {
     final String INSERT_SQL = "INSERT into HopDong (NgayBatDauO,NgayKetThucO,ID_HopDong,TienCoc,TienThue,NgayKyHopDong,NgayHetHopDong,GhiChu,ID_Phong,ID_Khach) values (?,?,?,?,?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE HopDong set NgayBatDauO = ?, NgayKetThucO = ?, TienCoc = ?, TienThue = ?, NgayKyHopDong = ?, NgayHetHopDong = ?, GhiChu = ? , ID_Phong = ? , ID_Khach = ?  where ID_HopDong = ?";
     final String DELETE_SQL = "DELETE HopDong where ID_HopDong = ?";
-    final String SELECT_ALL_SQL = "SELECT * FROM HopDong";
+    final String SELECT_ALL_SQL = "SELECT NgayBatDauO, NgayKetThucO, ID_HopDong, TienCoc, TienThue, NgayKyHopDong, GhiChu, NgayHetHopDong, GhiChu, ID_Phong, ID_Khach FROM HopDong";
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM HopDong where ID_HopDong = ?";
 
     @Override

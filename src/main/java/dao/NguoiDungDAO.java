@@ -19,7 +19,7 @@ public class NguoiDungDAO extends PhongTroChungDAO<NguoiDungEntity, Object> {
     final String INSERT_SQL = "INSERT into NguoiDung (ChucVu,ID_NguoiDung,Matkhau,TenDangNhap,Ho,Ten,Trang_Thai,Email,DiaChi,ID_HopDong) values (?,?,?,?,?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE NguoiDung set ChucVu = ?, Matkhau = ?, TenDangNhap = ?, Ho = ?, Ten = ?, Trang_Thai = ?, Email = ?, DiaChi = ?, ID_HopDong = ? where ID_NguoiDung = ?";
     final String DELETE_SQL = "DELETE NguoiDung where ID_NguoiDung = ?";
-    final String SELECT_ALL_SQL = "SELECT * FROM NguoiDung";
+    final String SELECT_ALL_SQL = "SELECT ChucVu, ID_NguoiDung, Matkhau, TenDangNhap, Ho, Ten, Trang_Thai, Email, DiaChi, ID_HopDong FROM NguoiDung";
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM NguoiDung where TenDangNhap = ?";
     final String SELECT_BY_GMAIL_SQL = "SELECT * FROM NguoiDung WHERE Email = ?";
     final String UPDATE_PASSWORD_SQL = "UPDATE NguoiDung SET Matkhau = ? WHERE Email = ?";

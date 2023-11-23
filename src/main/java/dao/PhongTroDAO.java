@@ -19,7 +19,7 @@ public class PhongTroDAO extends PhongTroChungDAO<PhongTroEntity, Object> {
     final String INSERT_SQL = "INSERT into PhongTro (ID_Phong, SoPhong, Dientich, SoGiuong, GiaThue, TrangThai) values (?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE PhongTro set SoPhong = ?, Dientich = ?, SoGiuong = ?, GiaThue = ?, TrangThai = ? where ID_Phong = ?";
     final String DELETE_SQL = "DELETE PhongTro where ID_Phong = ?";
-    final String SELECT_ALL_SQL = "SELECT * FROM PHongTro";
+    final String SELECT_ALL_SQL = "SELECT ID_Phong, SoPhong, Dientich, SoGiuong, GiaThue, TrangThai FROM PhongTro";
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM PhongTro where ID_Phong = ?";
 
     @Override

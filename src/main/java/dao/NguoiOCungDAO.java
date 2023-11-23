@@ -19,12 +19,12 @@ public class NguoiOCungDAO extends PhongTroChungDAO<NguoiOCungEntity, Object> {
     final String INSERT_SQL = " INSERT into NguoiOCung (Ten,Ho,ID_NguoiOCung,Email,HinhAnh,SoDienThoai,GioiTinh,CCCD,DiaChi,ID_Khach) values (?,?,?,?,?,?,?,?,?,?)";
     final String UPDATE_SQL = "UPDATE NguoiOCung set Ten = ?, Ho = ?,  Email = ?, HinhAnh = ?, SoDienThoai = ?, GioiTinh = ?, CCCD = ?, DiaChi = ?, ID_Khach = ? where ID_NguoiOCung = ?";
     final String DELETE_SQL = "DELETE NguoiOCung where ID_NguoiOCung = ?";
-    final String SELECT_ALL_SQL = "SELECT * FROM NguoiOCung";
+    final String SELECT_ALL_SQL = "SELECT Ten, Ho, ID_NguoiOCung, Email, HinhAnh, SoDienThoai, GioiTinh, CCCD, DiaChi, ID_Khach FROM NguoiOCung";
     final String SELECT_BY_ID_ALL_SQL = "SELECT * FROM NguoiOCung where ID_NguoiOCung = ?";
 
     @Override
     public void insert(NguoiOCungEntity entity) {
-        JdbcHelper.update(INSERT_SQL, entity.getHo(), entity.getTen(), entity.getID_NguoiOCung(), entity.getEmail(), entity.getHinhAnh(), entity.getSoDienThoai(), entity.getGioiTinh(), entity.getCCCD(), entity.getDiaChi(), entity.getID_Khach());
+        JdbcHelper.update(INSERT_SQL, entity.getTen(),entity.getHo(),entity.getID_NguoiOCung(),entity.getEmail(),entity.getHinhAnh(),entity.getSoDienThoai(),entity.getGioiTinh(),entity.getCCCD(),entity.getDiaChi(),entity.getID_Khach());
     }
 
     @Override
@@ -33,7 +33,7 @@ public class NguoiOCungDAO extends PhongTroChungDAO<NguoiOCungEntity, Object> {
     }
 
     public void delete(Object id) {
-        JdbcHelper.update(INSERT_SQL, id);
+        JdbcHelper.update(DELETE_SQL, id);
     }
 
     public List<NguoiOCungEntity> selectAll() {
