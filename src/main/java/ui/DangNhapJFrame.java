@@ -63,7 +63,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
                         phongTroJFrame.setVisible(true);
                         phongTroJFrame.setTenDangNhapLabel(nd.getHo() + " " + nd.getTen());
                         phongTroJFrame.setChucVuLabel(nd.getChucVu());
-                        Log.info(nd.getChucVu() + " đã đăng nhập");
+                        Log.info(nd.getHo() + " " + nd.getTen() + " đã đăng nhập");
                     } else {
                         dispose();
                         phongTroJFrame.setVisible(true);
